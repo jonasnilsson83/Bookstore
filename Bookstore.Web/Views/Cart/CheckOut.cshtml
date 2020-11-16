@@ -1,0 +1,160 @@
+﻿
+@model Domain.Model.ShoppingCart
+
+@*Bookstore.Web.Models.ShoppingCartViewModel*@
+@Styles.Render("~/content/styles/checkout/Checkout.css")
+@{
+    ViewBag.Title = "Your cart";
+}
+
+<h2>Your cart</h2>
+
+@if (!Request.IsAuthenticated)
+{
+    @Html.Label("You must login to continue");
+}
+else
+{
+    <table class="table">
+
+
+        @if (Model == null || Model?.BooksInCart == null || Model?.BooksInCart.Count == 0)
+        {
+            @Html.Label("Your cart is empty");
+        }
+        else
+        {
+
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BooksInCart.First().Book.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BooksInCart.First().Book.Author)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BooksInCart.First().Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BooksInCart.First().Book.Price)
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.BooksInCart.First().Book.InStock)*@
+                </th>
+
+                <th></th>
+            </tr>
+
+
+            foreach (var item in Model.BooksInCart.Where(it => it.OrderAblility == Domain.Enums.OrderAblility.Full))
+            {
+                <tr class="Checkout">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Book.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Book.Author)
+                    </td>
+                    <td>
+                        @Html.ActionLink("++", "ManipulateCartFromCheckOut","Cart", new { id = item.Book.InternalId, add = true },null)
+                        @Html.DisplayFor(modelitem => item.Quantity)
+                        @Html.ActionLink("--", "ManipulateCartFromCheckOut","Cart", new { id = item.Book.InternalId, add = false}, null )
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Book.Price)
+                    </td>
+                    <td>
+                        <div class="StockIcon">
+
+                            <div class=" @(item.OrderAblility == Domain.Enums.OrderAblility.Full ? "InStockIcon" : "OutOfStockIcon")">
+                                &nbsp;
+
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Details", "Details","Bookstore", new { id = item.Book.InternalId }, null) 
+                    </td>
+                </tr>
+            }
+
+
+            foreach (var item in Model.BooksInCart.Where(it => it.OrderAblility != Domain.Enums.OrderAblility.Full))
+            {
+                <tr class="NotInStock">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Book.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Book.Author)
+                    </td>
+                    <td>
+                        <form action="~/Cart/AddOne/@item.Book.InternalId" method="post">
+                            
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="++" class="fa fa-plus" />
+                            
+                        </form>
+
+
+
+                        @*@Html.ActionLink("++", "AddOne", "Cart", new { id = item.Book.InternalId }, null)*@
+                        @Html.DisplayFor(modelitem => item.Quantity)
+                    <form action="~/Cart/RemoveOne/@item.Book.InternalId" method="post">
+
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="--" class=" btn fa-plus" />
+
+                    </form>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Book.Price)
+                    </td>
+                    <td>
+                        <div class="StockIcon">
+
+                            <div class=" @(item.OrderAblility == Domain.Enums.OrderAblility.Full ? "InStockIcon" : "OutOfStockIcon")">
+                                &nbsp;
+
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Details", "Details", "Bookstore", new { id = item.Book.InternalId }, null)
+                    </td>
+                </tr>
+            }
+
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>
+                        @Html.DisplayFor(modelitem => Model.TotalQuantity)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelitem => Model.TotalSum)
+                    </th>
+                    <th></th>
+                    <th></th>
+
+                </tr>
+            </tfoot>
+        }
+    </table>
+
+    <hr />
+    <h5>Enter your information:</h5>
+    <table class="table">
+        <tr>
+            <td>Your email</td>
+            <td> @Html.DisplayFor(u => User.Identity.Name) </td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>@Html.TextBox("txtName") </td>
+        </tr>
+    </table>
+}

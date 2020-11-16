@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Bookstore</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar navbar-dark bg-dark navbar-fixed-top">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+                @Html.ActionLink("Bookstore", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav">
+                    <li> @Html.ActionLink("Search for books", "Index", "Bookstore", null, new { @class = "nav-link" }) </li>
+                    <li>@Html.ActionLink("Checkout", "CheckOut", "Cart", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
+                </ul>
+            </div>
+
+            <div class="nav navbar-nav ml-auto p-2 ">
+                <span type="button" class="btn btn-default btn-sm bg-light">
+                    @{
+                        int nbr = 0;
+                        try
+                        {
+                            int.TryParse(Session["nbrOfCartItems"].ToString(), out nbr) ;
+                        }
+                        catch
+                        {
+                        }
+                    }
+
+                    @Html.ActionLink($"Shopping Cart ({nbr} items)", "CheckOut", "Cart", null, new { @class = "fa fa-shopping-cart" })
+                </span>
+               </div>
+
+                @Html.Partial("_LoginPartial")
+            </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Bookstore Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

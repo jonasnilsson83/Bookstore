@@ -1,0 +1,9 @@
+{"books": [
+	{"title":"Mastering едц", "author":"Ove Ovesson", "price":62, "inStock":15},
+	{"title":"How To Spend Money", "author":"Ove Ovesson", "price":1000000, "inStock":1},
+	{"title":"Generic Title", "author":"Anders Anderssson", "price":15.5, "inStock":5},
+	{"title":"Generic Title", "author":"Anders Bertilsson", "price":17.48, "inStock":3},
+	{"title":"Bok 1", "author":"Karl Karlsson", "price":9.99, "inStock":20},
+	{"title":"Bok 2", "author":"Karl Karlsson", "price":49.95, "inStock":3},
+	{"title":"Bok 3", "author":"Anders Anderssson", "price":14.5, "inStock":0}
+]}

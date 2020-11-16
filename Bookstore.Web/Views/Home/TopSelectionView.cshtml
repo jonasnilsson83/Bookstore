@@ -1,0 +1,48 @@
+﻿@model  IEnumerable<Domain.Interface.IBook>
+
+@functions{
+    Random random = new Random();
+    public string GetRandomImg()
+    {
+        return random.Next(0, 9) % 2 == 0 ? "../Content/Images/OpenBook.jpg" : "/Content/Images/OpenBook2.jpg";
+
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Top selling books</h2>
+
+        <div class="card-deck">
+            @foreach (var book in Model)
+            {
+                <!-- Card -->
+                <div class="card">
+                    <!-- Card image -->
+                    <div class="view overlay">
+                        <img height="100" width="160" class="card-img-top" src=@GetRandomImg() alt="Card image cap">
+
+                        <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                    <!-- Card content -->
+                    <div class="card-body">
+                        <!-- Title -->
+                        <h4 class="card-title overflow-hidden">@book.Title</h4>
+                        <!-- Text -->
+
+                        <p class="card-text"> <label>Auhtor:</label> @book.Author</p>
+                        <!-- Button -->
+                        @Html.ActionLink("See details", $"Details/{book.InternalId}", "Bookstore")
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+        @Html.ActionLink("Search for other books", "Index", "Bookstore")
+    </div>
+   
+</div>

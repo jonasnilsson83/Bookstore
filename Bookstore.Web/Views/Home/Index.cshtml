@@ -1,0 +1,15 @@
+﻿@model  Bookstore.Web.Models.HomeViewModel
+@{
+    ViewBag.Title = "Bookstore";
+}
+
+<div class="jumbotron">
+    <h1>Bookstore</h1>
+    <p class="lead"></p>
+    <text class="lead">@Model.InfoText</text>
+    <br />
+    <img src="~/Content/Images/Cover.jpg" height="480" width="600" />
+</div>
+
+
+@{ Html.RenderPartial("TopSelectionView", Model.TopList); }

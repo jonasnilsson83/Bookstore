@@ -1,0 +1,24 @@
+﻿@*<div class="row">
+    <div class="col-4">
+        <div class="input-group mb-3 SearchGroup">
+            <input id"searchString" type="text" class="form-control" placeholder="Title or author" aria-label="Searcg books" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+<div class=" row">
+    <div class="col-4">
+        <form asp-controller="Bookstore" asp-action="Index" method="get">
+            <div class="input-group mb-3 SearchGroup">
+                <input id"searchString" name="SearchString" type="text" class="form-control" placeholder="Title or author" aria-label="Searcg books" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/search?view=aspnetcore-3.1*@

@@ -1,0 +1,25 @@
+﻿.Checkout {
+
+}
+.NotInStock {
+    color: red;
+    /*text-decoration: line-through;*/
+    background-color: brown;
+}
+.StockIcon
+{
+    height:25px;
+    width:25px;
+}
+.OutOfStockIcon {
+    background: url(../../Icons/OutOfStock.png);
+    background-size: cover;
+}
+
+.InStockIcon {
+    background-image: url(../../Icons/InStock.png);
+    /*background: url(../../Images/Cover.jpg );*/
+    background-size: cover;
+    /*width: 20px;
+    height: 20px;*/
+}
